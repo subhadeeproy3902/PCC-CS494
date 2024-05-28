@@ -16,7 +16,7 @@ void makeSet(int parent[], int rank[], int n)
         parent[i] = i;
         rank[i] = 0;
     }
-}
+} 
 
 int findParent(int parent[], int component)
 {
@@ -39,9 +39,7 @@ void unionSet(int u, int v, int parent[], int rank[], int n)
         parent[v] = u;
     }
     else {
-        parent[v] = u;
-
-
+        parent[v] = u; 
         rank[u]++;
     }
 }
