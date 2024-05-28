@@ -1,72 +1,80 @@
+#include <stdbool.h>
 #include <stdio.h>
-static int m, n;
-static int c = 0;
-static int count = 0;
-int g[50][50];
-int x[50];
-void nextValue(int k);
-void GraphColoring(int k);
-void main()
+#define V 4
+
+void printSolution(int color[]);
+
+bool isSafe(int v, bool graph[V][V], int color[], int c)
 {
-    int i, j;
-    int temp;
-    printf("\nEnter the number of nodes: ");
-    scanf("%d", &n);
-    printf("\nEnter Adjacency Matrix:\n");
-    for (i = 1; i <= n; i++)
-    {
-        for (j = 1; j <= n; j++)
-        {
-            scanf("%d", &g[i][j]);
+    for (int i = 0; i < V; i++)
+        if (graph[v][i] && c == color[i])
+            return false;
+    return true;
+}
+
+
+bool graphColoringUtil(bool graph[V][V], int m, int color[],
+                    int v)
+{
+    if (v == V)
+        return true;
+
+    for (int c = 1; c <= m; c++) {
+        
+        if (isSafe(v, graph, color, c)) {
+            color[v] = c;
+
+            
+            if (graphColoringUtil(graph, m, color, v + 1) == true)
+                return true;
+
+            color[v] = 0;
         }
     }
-    for (m = 1; m <= n; m++)
-    {
-        if (c == 1)
-        {
+
+    return false;
+}
+
+
+bool graphColoring(bool graph[V][V], int m, int color[])
+{
+    return graphColoringUtil(graph, m, color, 0);
+}
+
+void printSolution(int color[])
+{
+    printf("Solution Exists: Following are the assigned colors\n");
+    for (int i = 0; i < V; i++)
+        printf(" %d ", color[i]);
+    printf("\n");
+}
+
+void findChromaticNumber(bool graph[V][V])
+{
+    int color[V];
+    for (int i = 0; i < V; i++)
+        color[i] = 0;
+
+    int chromaticNumber = 1;
+    while (true) {
+        if (graphColoring(graph, chromaticNumber, color)) {
+            printf("Chromatic number is %d\n", chromaticNumber);
+            printSolution(color);
             break;
         }
-        GraphColoring(1);
-    }
-    printf("\nThe chromatic number is %d", m - 1);
-}
-void GraphColoring(int k)
-{
-    int i;
-    while (1)
-    {
-        nextValue(k);
-        if (x[k] == 0)
-        {
-            return;
-        }
-        if (k == n)
-        {
-            c = 1;
-            count++;
-        }
-        else
-            GraphColoring(k + 1);
+        chromaticNumber++;
     }
 }
-void nextValue(int k)
+
+int main()
 {
-    int j;
-    while (1)
-    {
-        x[k] = (x[k] + 1) % (m + 1);
-        if (x[k] == 0)
-        {
-            return;
-        }
-        for (j = 1; j <= n; j++)
-        {
-            if (g[k][j] == 1 && x[k] == x[j])
-                break;
-        }
-        if (j == (n + 1))
-        {
-            return;
-        }
-    }
+    bool graph[V][V] = {
+        { 0, 1, 1, 1 },
+        { 1, 0, 1, 0 },
+        { 1, 1, 0, 1 },
+        { 1, 0, 1, 0 },
+    };
+
+    findChromaticNumber(graph);
+    return 0;
 }
