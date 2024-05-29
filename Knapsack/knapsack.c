@@ -78,24 +78,22 @@ int max(int a, int b){
 }
 
 int knapsack_01(int val[],int w[],int n,int weight){
-    int profit, i, j;
+    int i, j;
     int dp[n+1][weight+1];
-    for(i=0;i<=weight;i++)
-        dp[0][i] = 0;
-    for(i=1;i<=n;i++)
-        dp[i][0] = 0;
 
-    for(i=1; i<=n; i++)
-        for(j=1; j<=weight; j++){
-            if(j < w[i-1])
-                dp[i][j] = dp[i-1][j]; 
+    for(i=0; i<=n; i++)
+        for(j=0; j<=weight; j++){
+            if(i==0 || j==0)
+                dp[i][j] = 0;
+            else if (w[i - 1] <= j)
+                dp[i][j] = max(val[i - 1] + dp[i - 1][j - w[i - 1]],dp[i - 1][j]);
             else
-                dp[i][j] = max(dp[i-1][j],val[i-1] + dp[i-1][j-w[i-1]]);
+                dp[i][j] = dp[i - 1][j];
         }
     return dp[n][weight];
 }
 
-void main(){
+int main(){
     int i,n,W;
     printf("Enter n and W : ");
     scanf("%d %d",&n, &W);
@@ -108,5 +106,6 @@ void main(){
     	scanf("%d", &val[i]);
     printf("Profit for 0/1 knapsack : %d\n", knapsack_01(val,w,n,W));
     printf("Profit for fractional knapsack : %f\n", knapsack_frctional(val, w, n, W));
+    return 0;
 }
 
