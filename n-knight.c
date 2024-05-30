@@ -24,7 +24,7 @@ void print(int m, int n, int board[][n], int *count) {
         }
         printf("\n");
     }
-}
+} 
 
 void solve(int k, int row, int col, int m, int n, int board[][n], int *count) {
     if (k == 0) {

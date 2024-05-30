@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #define N 4
+
 void printPuzzle(int arr[N*N], int *count) {
     printf("\nIntermediate state %d\n", (*count)++);
     for (int i = 0; i < N*N; i++) {
