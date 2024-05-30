@@ -47,7 +47,7 @@ int main() {
     int m, n, k, count = 0;
     printf("Enter the size of the board (m n): ");
     scanf("%d %d", &m, &n);
-    printf("Enter the numbe  r of knights (K): ");
+    printf("Enter the number of knights (K): ");
     scanf("%d", &k);
 
     int board[m][n];
