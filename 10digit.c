@@ -9,7 +9,6 @@ int repeat(int arr[], int index) {
       count++;
     }
   }
-  
   return count;
 }
 

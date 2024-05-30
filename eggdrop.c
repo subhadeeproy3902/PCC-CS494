@@ -47,7 +47,6 @@ int eggDrop(int n, int k)
 	return eggFloor[n][k];
 }
 
-// Driver code
 int main()
 {
 	int n = 2, k = 36;
