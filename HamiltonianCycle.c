@@ -55,7 +55,7 @@ int hamcycle(int n, int graph[n][n])
   {
     path[i] = -1;
   }
-  path[0] = 0;
+  path[0] = 0; //path stores the vertices included
   if(hamcycleUtil(n, graph, path, 1) == 0)
   {
     printf("Solution does not exist\n");
