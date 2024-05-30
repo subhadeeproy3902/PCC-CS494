@@ -14,12 +14,8 @@ int count(int i){
 }
 
 int countNonZeroDigits(int n, int k){
-    int i, c, x = 0, s = 0;
-    for(i=1; i<=k; i++){
-        s *= 10;
-        s += 1;
-    }
-    for(i=s; i<=n; i++){
+    int i, c, x = 0;
+    for(i=1; i<=n; i++){
         c = count(i);
         if(c == k){
             printf("%d, ",i);
